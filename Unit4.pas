@@ -2111,29 +2111,28 @@ begin
      bm3.Free;
      bm4.Free;
 
-    for i:=1 to 4 do begin         //обработка останоки гонки по приходе на финиш одной одной из лошадей
+    for i:=1 to 4 do begin         //handler of race stop
       if (Round(basepoint*a[i]))>=(PaintBox1.Width-10) then
-        if i=HorseNum then begin     //победа
-            //ShowMessage('Поздравляем с победой!');
+        if i=HorseNum then begin     //win
             money:=money+bet*2;
             wins:=wins+1;
             Updatelbls;
-            worl:=True;//игрок победил
-            br:=true;//остановка цикла
+            worl:=True;//player won
+            br:=true;
           end
-        else begin  //поражение
+        else begin  //lose
           loses:=loses+1;
           n:=i;
           Updatelbls;
-          worl:=false;//игрок проиграл
-          br:=True;//остановка цикла
+          worl:=false;//player lost
+          br:=True;
           end;
       if br=True then Break;
     end;
 
-    if br=True then begin  //остановка гонки
-      Button5.Caption:='Старт';
-      Button3.Caption:='Пауза';
+    if br=True then begin  //race stop
+      Button5.Caption:='Start';
+      Button3.Caption:='Pause';
       stand:=True;
       betani:=False;
       for i:=1 to 4 do a[i]:=0;
@@ -2143,7 +2142,7 @@ begin
       Button3.Enabled:=False;
       Edit1.Enabled:=true;
 
-      //запуск анимации сообщения победы/поражения
+      //message animation starter
       uppoint:=0;
       Timer2.Enabled:=True;
 
@@ -2187,13 +2186,13 @@ begin
           Brush.Style := bsSolid;
           FillRect(ClientRect);
       if (MainCount mod 2 = 0) then begin
-         Font.Height:=200;
-         Font.Color:=clBlack;
-         TextOut(0,60,'БЕГ');
-      end else begin
          Font.Height:=160;
+         Font.Color:=clBlack;
+         TextOut(0,60,'HORSE');
+      end else begin
+         Font.Height:=200;
          Font.Color:=clRed;
-         TextOut(10,280,'ЛОШАДЕЙ');
+         TextOut(10,280,'RUN');
       end;
     end;
   end else if stand=True then begin
